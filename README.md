@@ -14,14 +14,14 @@ All of the code is organized into folders. Each folder starts with a number foll
 The code will look like the following:
 ```
  pipeline {
- agent any
- stages {
- stage("Hello") {
- steps {
- echo 'Hello World'
- }
- }
- }
+      agent any
+      stages {
+           stage("Hello") {
+                steps {
+                     echo 'Hello World'
+                }
+           }
+      }
  }
 ```
 
