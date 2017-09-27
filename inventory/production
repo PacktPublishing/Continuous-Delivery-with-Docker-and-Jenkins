@@ -1,0 +1,2 @@
+[webservers]
+web2 ansible_host=192.168.0.115 ansible_user=ubuntu

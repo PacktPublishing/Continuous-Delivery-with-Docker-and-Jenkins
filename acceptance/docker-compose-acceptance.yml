@@ -1,0 +1,6 @@
+version: "3"
+services:
+  acceptance_test:
+    build: ./acceptance
+    links:
+      - calculator
