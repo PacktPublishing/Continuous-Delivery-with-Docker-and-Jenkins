@@ -1,0 +1,80 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('com.h2database:h2:1.4.191')
+	}
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "4.2.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: "jacoco"
+apply plugin: 'checkstyle'
+
+jar {
+	baseName = 'calculator'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
+	compile "redis.clients:jedis:2.9.0"
+
+	testCompile("info.cukes:cucumber-java:1.2.4")
+	testCompile("info.cukes:cucumber-junit:1.2.4")
+}
+
+jacocoTestCoverageVerification {
+     violationRules {
+          rule {
+               limit {
+                    minimum = 0.2
+               }
+          }
+     }
+}
+
+task acceptanceTest(type: Test) {
+	include '**/acceptance/**'
+	systemProperties System.getProperties()
+}
+
+task smokeTest(type: Test) {
+	include '**/smoke/**'
+	systemProperties System.getProperties()
+}
+
+test {
+	exclude '**/acceptance/**'
+	exclude '**/smoke/**'
+}
+
+bootRepackage {
+       executable = true
+}
+
+flyway {
+    url = 'jdbc:h2:file:/tmp/calculator'
+    user = 'sa'
+}

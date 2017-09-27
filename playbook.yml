@@ -1,0 +1,45 @@
+---
+- hosts: webservers
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: add docker apt keys
+    apt_key: 
+      keyserver: hkp://p80.pool.sks-keyservers.net:80
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+  - name: update apt
+    apt_repository: 
+      repo: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+      state: present
+  - name: install Docker
+    apt: 
+      name: docker-engine
+      update_cache: yes
+      state: present
+  - name: add ubuntu to docker group
+    user:
+      name: ubuntu
+      groups: docker
+      append: yes
+  - name: install python-pip
+    apt:
+      name: python-pip
+      state: present
+  - name: install docker-py
+    pip:
+      name: docker-py
+  - name: install Docker Compose
+    pip:
+      name: docker-compose
+      version: 1.9.0
+  - name: copy docker-compose.yml
+    copy:
+      src: ./docker-compose.yml
+      dest: ./docker-compose.yml
+  - name: run docker-compose
+    environment:
+      BUILD_TIMESTAMP: "{{ lookup('env', 'BUILD_TIMESTAMP') }}"
+    docker_service:
+      project_src: .
+      state: present
+      restarted: yes
