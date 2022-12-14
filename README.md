@@ -1,3 +1,15 @@
+
+### Get this product for $5
+
+<i>Packt is having its biggest sale of the year. Get this eBook or any other book, video, or course that you like just for $5 each</i>
+
+
+<b><p align='center'>[Buy now](https://packt.link/9781838552183)</p></b>
+
+
+<b><p align='center'>[Buy similar titles for just $5](https://subscription.packtpub.com/search)</p></b>
+
+
 ## Continuous Delivery with Docker and Jenkins
 This is the code repository for [Continuous Delivery with Docker and Jenkins](https://www.packtpub.com/networking-and-servers/continuous-delivery-docker-and-jenkins?utm_source=github&utm_medium=repository&utm_campaign=9781787125230), published by [Packt](https://www.packtpub.com/?utm_source=github). It contains all the supporting project files necessary to work through the book from start to finish.
 ## About the Book
